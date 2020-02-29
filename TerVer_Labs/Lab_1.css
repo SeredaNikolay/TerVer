@@ -1,0 +1,160 @@
+body
+{
+    position: absolute;
+    margin: 0%;
+    background-color: blue;/**/
+    border-collapse: collapse;
+    overflow-y: auto;
+}
+
+div
+{
+    position: fixed;
+    box-sizing: border-box;
+}
+
+.EdgeCell
+{
+    padding: 0%;
+    min-width: 20%;
+    max-width: 20%;
+    min-height: 100%;
+    max-height: 100%;
+    background-color: red;
+}
+
+#First
+{
+    left: 0%;
+}
+
+#MiddleCell
+{
+    left: 20%;
+    min-width: 60%;
+    max-width: 60%;
+    min-height: 100%;
+    max-height: 100%;
+    background-color: gray;
+    overflow-y: scroll;
+}
+
+#Last
+{
+    left: 80%;
+}
+
+.AnimationImg
+{
+    position: relative;
+    left: 0%;
+    top: 0%;
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 100vh;
+    max-height: 100vh;
+}
+
+#FormulaBox
+{
+    box-sizing: border-box;
+    min-width: 100%;
+    max-width: 100%;
+    height: auto;
+    text-align-last: center;
+    text-align: center;/*как выше, но для FF*/
+    background-color: rgb(247, 247, 121);
+    color: #100146;
+    border-color: #500d6e;
+    border-width: 7px;
+    border-style: outset;
+}
+
+option
+{
+    position: relative;
+    font-size: auto;
+    background-color: rgb(218, 168, 241)
+}
+
+#FormulaImg
+{
+    position: relative;
+    display: block;
+    min-width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    border-style: ridge;
+    border-width: 7px;
+    border-color: green;
+}
+
+#CalculateButton
+{
+    box-sizing: border-box;
+    min-width: 100%;
+    max-width: 100%;
+    background-color: lime;
+    border-style: outset;
+    border-width: medium;
+    border-color: rgb(16, 139, 16);
+}
+
+label
+{
+    box-sizing: border-box;
+    display: block;
+    font-size: auto;
+    min-width: 100%;
+    max-width: 100%;
+    border-style: groove;
+    border-width: medium;
+    border-color: rgb(96, 102, 7);
+    background-color: rgb(207, 231, 142);
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+input
+{
+    position: relative;
+    box-sizing: border-box;
+    font-size: auto;
+    border-style: groove;
+    border-width: medium;
+    border-color: rebeccapurple;
+    background-color: rgb(188, 132, 243);
+    box-sizing: border-box;
+    min-width: 100%;
+    max-width: 100%;
+    
+}
+
+.txtDiv
+{
+    position: relative;
+    display: block;
+    font-size: auto;
+    box-sizing: border-box;
+    min-width: 100%;
+    max-width: 100%;
+    border-style: groove;
+    border-width: medium;
+    border-color: rebeccapurple;
+    background-color: rgb(188, 132, 243);
+    border-width: 7px;
+    border-color: rgb(28, 85, 207);
+    overflow: auto;
+}
+
+#DefinitionDiv
+{
+    height: auto;
+}
+
+#AnswerDiv
+{
+    height: auto;
+}

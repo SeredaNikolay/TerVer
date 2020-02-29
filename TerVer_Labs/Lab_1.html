@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="Lab_1.css">
+        <script languege="javascript" src="Lab_1.js"></script>
+    </head>
+    <body onload="setParameters()" onresize="setTxtDivHeight()">
+        <audio id="Audio" src="Audio/Monkey.mp3" hidden></audio>
+        <div class="EdgeCell" id="First">
+            <img class="AnimationImg" src="Images/Animation.gif" alt="Анимация">
+        </div>
+        <div id="MiddleCell">
+            <select id="FormulaBox" onchange="changeFormAndDef()">
+                <option value="1">Посчитать количество сочетаний без повторений</option>
+                <option value="2">Посчитать количество сочетаний с повторениями</option>
+                <option value="3">Посчитать количество размещений без повторений</option>
+                <option value="4">Посчитать количество размещений с повторениями</option>
+                <option value="5">Посчитать количество перестановок без повторений</option>
+                <option value="6">Посчитать количество перестановок c повторениями</option>
+            </select>
+            <img id="FormulaImg" alt="Фомула" onload="setTxtDivHeight()" onclick="zadacha1()">
+            <label id="MLabel">Введите натуральное число m</label>
+            <input id="MInput" type="text" oninput="checkMInputData()">
+            <label>Bведите натуральное число n</label>
+            <input id="NInput" type="text" oninput="checkNInputData()">
+            <button id="CalculateButton" onclick="OnCalculateBtnClick()">Посчитать</button>
+            <div class="txtDiv" id="DefinitionDiv">
+            </div>
+            <label>Результат</label>
+            <div class="txtDiv" id="AnswerDiv">
+            </div>
+        </div>
+        <div class="EdgeCell" id="Last">
+            <img class="AnimationImg" src="Images//Animation.gif" alt="Анимация">
+        </div>
+    </body>
+</html>
