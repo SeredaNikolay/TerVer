@@ -55,7 +55,7 @@ div
     max-height: 100vh;
 }
 
-#FormulaBox
+select
 {
     box-sizing: border-box;
     min-width: 100%;
@@ -141,8 +141,6 @@ input
     min-width: 100%;
     max-width: 100%;
     border-style: groove;
-    border-width: medium;
-    border-color: rebeccapurple;
     background-color: rgb(188, 132, 243);
     border-width: 7px;
     border-color: rgb(28, 85, 207);
