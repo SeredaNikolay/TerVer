@@ -2,40 +2,26 @@
     <head>
         <meta charset="utf-8"><!--Поодержка русского-->
         <link rel="stylesheet" type="text/css" href="Lab_1.css">
-        <script languege="javascript" src="JavaScript/DataAndWarnings.js"></script>
-        <script languege="javascript" src="JavaScript/ChangeElementsParameters.js"></script>
-        <script languege="javascript" src="JavaScript/SettingElementsAvailability.js"></script>
-        <script languege="javascript" src="JavaScript/DataCheck.js"></script>       
-        <script languege="javascript" src="JavaScript/Calculations.js"></script>
-        <script languege="javascript" src="JavaScript/Other.js"></script>
+        <script languege="javascript" src="JavaScript/DataControl.js"></script>
+        <script languege="javascript" src="JavaScript/CalculatingFormulaFunctions.js"></script>
+        <script languege="javascript" src="JavaScript/Data.js"></script>
+        <script languege="javascript" src="JavaScript/SetElementCount.js"></script>
+        <script languege="javascript" src="JavaScript/SetParametrs.js"></script>
+        <script languege="javascript" src="JavaScript/Button.js"></script>
     </head>
-    <body onload="setParameters()" onresize="setTxtDivHeight()">
+    <body onload="setStartParametrs()" onresize="setTextDivHeight()"></body>
         <audio id="Audio" src="Audio/Monkey.mp3" hidden></audio>
         <div class="EdgeCell" id="First">
             <img class="AnimationImg" src="Images/Animation.gif" alt="Анимация">
         </div>
         <div id="MiddleCell">
-            <!--<select>
-            </select>-->
-            <select id="FormulaBox" onchange="changeFormulaAndDefinition()">
-                <option value="1">Посчитать количество сочетаний без повторений</option>
-                <option value="2">Посчитать количество сочетаний с повторениями</option>
-                <option value="3">Посчитать количество размещений без повторений</option>
-                <option value="4">Посчитать количество размещений с повторениями</option>
-                <option value="5">Посчитать количество перестановок без повторений</option>
-                <option value="6">Посчитать количество перестановок c повторениями</option>
-            </select>
-            <img id="FormulaImg" alt="Фомула" onload="setTxtDivHeight()" onclick="zadacha1()">
-            <label id="MLabel">Введите натуральное число m</label>
-            <input id="MInput" type="text" oninput="checkMInputData(1)">
-            <label>Bведите натуральное число n</label>
-            <input id="NInput" type="text" oninput="checkNInputData(1)">
-            <button id="CalculateButton" onclick="OnCalculateBtnClick()">Посчитать</button>
-            <div class="txtDiv" id="DefinitionDiv">
-            </div>
-            <label>Результат</label>
-            <div class="txtDiv" id="AnswerDiv">
-            </div>
+            <div class="UnifyingDiv" id="SelectDiv"></div>
+            <div class="UnifyingDiv" id="TextDiv"></div>
+            <div class="UnifyingDiv" id="ImgDiv"></div>
+            <div class="UnifyingDiv" id="InputDiv"></div>
+            <button id="CalculateButton" onclick="OnCalculateButtonClick()">Посчитать</button>
+            <label id="AnswerLabel">Результат</label>
+            <div id="AnswerDiv"></div>
         </div>
         <div class="EdgeCell" id="Last">
             <img class="AnimationImg" src="Images//Animation.gif" alt="Анимация">
