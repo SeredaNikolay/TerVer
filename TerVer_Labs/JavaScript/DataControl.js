@@ -103,7 +103,7 @@ function firstDotPos(strValue)
         return 0;
     for(var i=0; i<strValue.length; i++)
     {
-        if(strValur[i]=='.')
+        if(strValue[i]=='.')
             return i;
     }
     return -1;
@@ -117,7 +117,7 @@ function isFrac(strValue, notAllowInsignZeros)
         return 0;
     if(strValue.startsWith('.')||strValue.endsWith('.'))
         return 0;
-    var dotPos=dotPos(strValue);
+    var dotPos=firstDotPos(strValue);
     var int=strValue.slice(0, dotPos);
     var frac=strValue.slice(dotPos+1);
     if(!(isInt(int, notAllowInsignZeros)&&isPos(strValue, 0)&&isInt(frac, 0)))
@@ -133,10 +133,10 @@ function isFracZero(strValue, notAllowInsignZeros)
         return 0;
     if(strValue.startsWith('.')||strValue.endsWith('.'))
         return 0;
-    var dotPos=dotPos(strValue);
+    var dotPos=firstDotPos(strValue);
     var int=strValue.slice(0, dotPos);
     var frac=strValue.slice(dotPos+1);
-    if(!(isInt(int, notAllowInsignZeros)&&isPos(strValue, 0)&&isInt(frac, 0)))
+    if(!(isIntZero(int, notAllowInsignZeros)&&isIntZero(frac, 0)))
         return 0;
     if(!(isIntZero(int, notAllowInsignZeros)&&isIntZero(frac, 0)))
         return 0; 

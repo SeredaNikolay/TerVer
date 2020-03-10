@@ -1,6 +1,28 @@
+function getCurrentSelectOptionTextArr(textArr, index)
+{
+    var text=textArr[index];
+    var ind;
+    for(var i=index, j=0; i>0; i--, j++)
+    {
+        ind=Number(document.getElementsByClassName("SomeSelect")[j].value);
+        text=text[ind];
+    }
+    return text;
+}
+
+function getCurrentCaseValue(valueArr)
+{
+    var SomeSelect=document.getElementsByClassName("SomeSelect");
+    var i=0;
+    var value=valueArr[SomeSelect[i].value];
+    for(i=1; i<SomeSelect.length; i++)
+        value=value[SomeSelect[i].value];
+    return value;
+}
+
 function getInputStrValue(SomeInput, isArr)
 {
-    var strValue=[[], [], [], []];
+    var strValue=[[], [], [], [], [], []];
     for(var i=0; i<SomeInput.length; i++)
     {
         if(isArr[i])
@@ -40,20 +62,4 @@ function getValues(value)
         }
     }
     return -1;
-}
-
-function OnCalculateButtonClick()
-{
-    var SomeValues=[[], [], [], []];
-    var errorInputInd=getValues(SomeValues);
-    if(errorInputInd!=-1)
-    {       
-        setErorrState(1, errorInputInd);
-    }
-    else
-    {
-        var answer=CalculateValue(SomeValues);
-        if(answer!=-1)
-            document.getElementById("AnswerDiv").innerHTML=answer;
-    }
 }

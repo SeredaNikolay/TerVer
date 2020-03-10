@@ -166,8 +166,8 @@ input
     background-color: rgb(188, 132, 243);
     border-width: 7px;
     border-color: rgb(28, 85, 207);
-    overflow: auto;
-    height: auto;
+    word-break: break-all;
+    overflow-y: auto;
 }
 
 #TextDiv

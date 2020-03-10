@@ -14,18 +14,9 @@ function setTextDivHeight()
     var Height=MiddleCellHeight-(SelectDivHeight+SomeDivHeights+ImgDivHeight+InputDivHeight+CalculateButtonHeight+AnswerLabelHeight);
     var LastSomeDivHeight=Height/2;
     var AnswerDivHeight=Height-LastSomeDivHeight;
-    SomeDiv[SomeDiv.length-1].style.height=LastSomeDivHeight+"px";
+    if(SomeDiv[SomeDiv.length-1]!=undefined)
+        SomeDiv[SomeDiv.length-1].style.height=LastSomeDivHeight+"px";
     document.getElementById("AnswerDiv").style.height=AnswerDivHeight+"px";
-}
-
-function getCurrentCaseValue(valueArr)
-{
-    var SomeSelect=document.getElementsByClassName("SomeSelect");
-    var i=0;
-    var value=valueArr[SomeSelect[i].value];
-    for(i=1; i<SomeSelect.length; i++)
-        value=value[SomeSelect[i].value];
-    return value;
 }
 
 function setElementsValues(className, Attribute, valueArr)
@@ -42,7 +33,7 @@ function setElementsValues(className, Attribute, valueArr)
             for(k=0; k<Attribute[i].length; k++)
             {
                 value=getCurrentCaseValue(valueArr[i][k]);
-                value=value[k];
+                value=value[j];
                 if(Attribute[i][k]=="innerHTML")
                     element[i][j].innerHTML=value;
                 else
@@ -56,7 +47,6 @@ function setSelect()
 {
     var index=document.getElementsByClassName("SomeSelect")[0].value;
     setSelectCount(SelectBoxCount[index]);
-
 }
 
 function setDiv()
@@ -76,8 +66,12 @@ function setImg()
 function setInput()
 {
     var value=getCurrentCaseValue(LabelCount);
+    var SomeInput=document.getElementsByClassName("SomeInput");
+    var oldLength=SomeInput.length;
     setLabelAndInputCount(value);
     setElementsValues(["SomeLabel"], [["innerHTML"]], [[LabelText]]);
+    for(var i=oldLength; i<SomeInput.length; i++)
+        SomeInput[i].oninput=OnInputValueChange;
 }
 
 function setCaseParametrs()

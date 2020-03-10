@@ -14,16 +14,21 @@ function product(firstValue, lastValue)
     }
     if(!lastValue)
         return BigInt(1);
-    for(i=BigInt(firstValue); i<=BigInt(lastValue); i++)
+    var val;
+    if(!firstValue)
+        val=BigInt(1);
+    else   
+        val=BigInt(firstValue)
+    for(i=val; i<=BigInt(lastValue); i++)
         value*=i;
     return value;
 }
 
-function bigNatPow(n, m)
+function bigNotNegIntPow(n, m)
 {
     var value=BigInt(1);
     var N=BigInt(n);
-    if(m<1)
+    if(m<0)
     {
         errorPrint(2);
         return -1;
@@ -33,6 +38,8 @@ function bigNatPow(n, m)
         errorPrint(3);
         return -1;
     }
+    if(!m)
+        return BigInt(1);
     for(i=0; i<m; i++)
         value*=N;
     return value;
@@ -43,12 +50,12 @@ function calc(m, n, combination)
     var min=m;
     var max=n-m;
     var numerator=BigInt(1);
-    if(m<1)
+    if(m<0)
     {
         errorPrint(4);
         return -1;
     }
-    if(n<1)
+    if(n<0)
     {
         errorPrint(5);
         return -1;
@@ -72,13 +79,13 @@ function calc(m, n, combination)
     }
     if(max+1<=n)
        numerator=product(max+1, n);
-    return numerator/product(1, min);
+    return numerator/product(0, min);
 }
 
 function permWithRep(ni, n)
 {
     var numerator=BigInt(1);
-    if(n<1)
+    if(n<0)
     {
         errorPrint(5);
         return -1;
@@ -86,7 +93,7 @@ function permWithRep(ni, n)
     var amount=0;
     for(i=0; i<ni.length; i++)
     {
-        if(ni[i]>0)
+        if(ni[i]>-1)
             amount+=ni[i];
         else
         {
@@ -110,7 +117,7 @@ function permWithRep(ni, n)
     var denominator=BigInt(1);
     for(var i=0; i<ni.length; i++)
         if(IndOfmax!=i)
-            denominator*=product(1, ni[i]);
+            denominator*=product(0, ni[i]);
     return numerator/denominator;
 }
 function amount(arr)
@@ -133,6 +140,11 @@ function RepCombinations(Value)
 {
     var N=Value[0][0];
     var M=Value[1][0];
+    if(N<1)
+    {
+        errorPrint(19);
+        return -1;
+    }
     return calc(M, N+M-1, 1);
 }
 
@@ -147,13 +159,13 @@ function RepPlacements(Value)
 {
     var N=Value[0][0];
     var M=Value[1][0];
-    return bigNatPow(N, M);
+    return bigNotNegIntPow(N, M);
 }
 
 function NotRepPermutations(Value)
 {
     var N=Value[0][0];
-    return product(1, N);
+    return product(0, N);
 }
 
 function RepPermutations(Value)
@@ -169,12 +181,12 @@ function Task_1(Value)
     var l=Value[1][0];
     var r=Value[2][0];
     var s=Value[3][0];
-    if(r-s<1)
+    if(r-s<0)
     {
         errorPrint(9);
         return -1;
     }
-    if(k-l<1)
+    if(k-l<0)
     {
         errorPrint(10);
         return -1;

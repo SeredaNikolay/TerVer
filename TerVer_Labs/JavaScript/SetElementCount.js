@@ -28,35 +28,6 @@ function setElementCount(ElementDivId, className, tag, count)
     }  
 }
 
-function getCurrentSelectOptionTextArr(textArr, index)
-{
-    var text=textArr[index];
-    var ind;
-    for(var i=index, j=0; i>0; i--, j++)
-    {
-        ind=Number(document.getElementsByClassName("SomeSelect")[j].value);
-        text=text[ind];
-    }
-    return text;
-}
-
-function updateSelectOptions(index)
-{
-    var SomeSelect=document.getElementsByClassName("SomeSelect");
-    for(var i=index+1; i<SomeSelect.length; i++)
-        setSelectOptionCount(i, getCurrentSelectOptionTextArr(OptionText, i));
-}
-
-function OnSelectValueChange()
-{
-    var index=0;
-    var SomeSelect=document.getElementsByClassName("SomeSelect");
-    while(event.target!=SomeSelect[index])
-        index++;
-    updateSelectOptions(index);
-    setCaseParametrs();
-}
-
 function setSelectCount(count)
 {
     var oldLength=document.getElementsByClassName("SomeSelect").length;
