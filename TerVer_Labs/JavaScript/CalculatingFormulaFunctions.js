@@ -175,7 +175,7 @@ function RepPermutations(Value)
     return permWithRep(NI, N);
 }
 //--------------------------Задачи к лабораторной №1----------------------//
-function Task_1(Value)
+function L1_Task_1(Value)
 {
     var k=Value[0][0];
     var l=Value[1][0];
@@ -210,10 +210,10 @@ function Task_1(Value)
     var B=NotRepCombinations([[k-l], [r-s]]);
     var C=NotRepCombinations([[k],[r]]);
     var answer=Number(A*B)/Number(C);
-    return answer.toFixed(6);
+    return answer.toFixed(FracPrecision);
 }
 
-function Task_2(Value)
+function L1_Task_2(Value)
 {
     var n=Value[0][0];
     var m=Value[1][0];
@@ -224,10 +224,10 @@ function Task_2(Value)
     }
     var C=NotRepCombinations([[n],[m]]);
     var answer=1/Number(C);
-    return answer.toFixed(6);
+    return answer.toFixed(FracPrecision);
 }
 
-function Task_3(Value)
+function L1_Task_3(Value)
 {
     var k=Value[0][0];
     var ki=Value[1];
@@ -266,5 +266,148 @@ function Task_3(Value)
         prod*=NotRepCombinations([[ki[i]],[ni[i]]]);
     var denominator=NotRepCombinations([[k],[n]]);
     var answer=Number(prod)/Number(denominator);
-    return answer.toFixed(6);
+    return answer.toFixed(FracPrecision);
+}
+//--------------------------Задачи к лабораторной №2----------------------//
+function L2_Task_1(Value)
+{
+    var i;
+    var Pi=[];
+    for(i=0; i<Value.length; i++)
+    {
+        if(Value[i][0]>1)
+        {
+            errorPrint(20);
+            return -1;
+        }
+        else
+            Pi[i]=Value[i][0];
+    }
+    var P=Pi[0]*(1-(1-Pi[1])*(1-Pi[2])*(1-Pi[3]))*Pi[4];
+    return P.toFixed(FracPrecision);
+}
+
+function L2_Task_2(Value)
+{
+    var i;
+    var Pi=[];
+    for(i=0; i<Value.length; i++)
+    {
+        if(Value[i][0]>1)
+        {
+            errorPrint(20);
+            return -1;
+        }
+        else
+            Pi[i]=Value[i][0];
+    }
+    var P=(1-Pi[0]*Pi[1])*Pi[2]*(1-Pi[3]*Pi[4]);
+    return P.toFixed(FracPrecision);
+}
+
+function getPi_L2_Task_3(Value)
+{
+    var i;
+    var N=[];
+    var Pi=[];
+    for(i=0; i<Value.length; i++)
+        N[i]=Value[i][0];
+    if(N[0]>N[2]||N[1]>N[2])
+    {
+        errorPrint(21);
+        return -1;
+    }
+    Pi[0]=(Number(product(N[0]-2, N[0]))/Number(product(N[2]-2, N[2]))).toFixed(FracPrecision);
+    Pi[1]=(Number(product(N[1]-2, N[1]))/Number(product(N[2]-2, N[2]))).toFixed(FracPrecision);
+    return Pi;
+}
+
+function L3_Task_3_A(Value)
+{
+    var Pi=getPi_L2_Task_3(Value);
+    var PA=[Pi[0], Pi[1], (Pi[0]*Pi[1]).toFixed(FracPrecision)];
+    var answer="P(A<sub>1</sub>)="+PA[0]+"<br>P(A<sub>2</sub>)="+PA[1]+"<br>P(B)="+PA[2];
+    return answer;
+}
+
+function L3_Task_3_B(Value)
+{
+    var Pi=getPi_L2_Task_3(Value);
+    var PA=[Pi[0], (1-Pi[1]).toFixed(FracPrecision)];
+    PA[2]=(PA[0]*PA[1]).toFixed(FracPrecision);
+    var answer="P(A<sub>1</sub>)="+PA[0]+"<br>P(<u>A</u><sub>2</sub>)="+PA[1]+"<br>P(B)="+PA[2];
+    return answer;
+}
+
+function L3_Task_3_C(Value)
+{
+    var Pi=getPi_L2_Task_3(Value);
+    var PA=[(Pi[0]*(1-Pi[1])).toFixed(FracPrecision), ((1-Pi[0])*Pi[1]).toFixed(FracPrecision)];
+    PA[2]=(Number(PA[0])+Number(PA[1])).toFixed(FracPrecision);
+    var answer="P(A<sub>1</sub>)="+Pi[0]+"<br>P(A<sub>2</sub>)="+Pi[1]+"<br>P(<u>A</u><sub>1</sub>)="+(1-Pi[0]).toFixed(FracPrecision)+"<br>P(<u>A</u><sub>2</sub>)="+(1-Pi[1]).toFixed(FracPrecision)+"<br>P(B)="+PA[2];
+    return answer;
+}
+
+function L3_Task_3_D(Value)
+{
+    var Pi=getPi_L2_Task_3(Value);
+    var PA=[(1-Pi[0]).toFixed(FracPrecision), (1-Pi[1]).toFixed(FracPrecision)];
+    PA[2]=(1-PA[0]*PA[1]).toFixed(FracPrecision);  
+    var answer="P(<u>A</u><sub>1</sub>)="+PA[0]+"<br>P(<u>A</u><sub>2</sub>)="+PA[1]+"<br>P(B)="+PA[2];
+    return answer;
+}
+
+function TotalProbability(Value)
+{
+    var amount=0, totProb=0, i;
+    if(Value[0].length!=Value[1].length)
+    {
+        errorPrint(22);
+        return -1;
+    }
+    for(i=0; i<Value[0].length; i++)
+    {
+        if(Value[0][i]>1||Value[1][i]>1)
+        {
+            errorPrint(24);
+            return -1;
+        }
+    }
+    for(i=0; i<Value[0].length; i++)
+        amount+=Value[0][i];
+    if(amount!=1)
+    {
+        errorPrint(23);
+        return -1;
+    }
+    for(i=0; i<Value[0].length; i++)
+        totProb+=Value[0][i]*Value[1][i];
+    return totProb.toFixed(FracPrecision);
+}
+
+function ConditionalProbability(Value)
+{
+    var answer="", i, j, totProb=Number(TotalProbability(Value));
+    var PHi=Value[0], PHiA=Value[1], number=Value[2];
+    if(totProb==-1)
+        return -1;
+    if(!totProb)
+    {
+        errorPrint(25);
+        return -1;
+    }
+    for(i=0; i<number.length; i++)
+    {
+        if(number[i]>PHi.length)
+        {
+            errorPrint(26);
+            return -1;
+        }
+    }
+    for(i=0; i<number.length; i++)
+    {
+        j=number[i]-1;
+        answer+="P<sub>A</sub>(H<sub>"+(j+1)+"</sub>)="+((PHi[j]*PHiA[j])/totProb).toFixed(FracPrecision)+"<br>";
+    }
+    return answer;
 }

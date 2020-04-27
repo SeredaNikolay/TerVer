@@ -63,7 +63,7 @@ function setDivCount(count)
     var SomeDiv=document.getElementsByClassName("SomeDiv");
     var oldLength=SomeDiv.length;
     setElementCount("TextDiv", ["SomeDiv"], ["div"], count);
-    var minHight=document.getElementsByClassName("SomeSelect")[0].offsetHeight;
+    var minHight=3*document.getElementsByClassName("SomeSelect")[0].offsetHeight;
     for(var i=oldLength; i<SomeDiv.length; i++)
         SomeDiv[i].style.minHeight=minHight+"px";
 }

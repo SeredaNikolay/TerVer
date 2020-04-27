@@ -8,6 +8,11 @@ body
     overflow-y: auto;
 }
 
+u
+{
+    text-decoration: overline;
+}
+
 div
 {
     position: fixed;
