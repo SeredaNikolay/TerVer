@@ -88,7 +88,7 @@ function setCaseParametrs()
 function setStartParametrs()
 {
     isBlocked=0;
-    FracPrecision=11;
+    FracPrecision=9;
     setSelectCount(SelectBoxCount[0]);
     setSelectOptionCount(0, getCurrentSelectOptionTextArr(OptionText, 0));
     updateSelectOptions(0);
