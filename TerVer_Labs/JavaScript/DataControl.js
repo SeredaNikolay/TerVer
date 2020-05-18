@@ -88,7 +88,7 @@ function hasOnlyDot(strValue)
         {
             if(strValue[i]=='.')
                 dotCounter++;
-            else
+            else if(strValue[i]!='-')
                 return 0;
         }
     }
@@ -136,9 +136,9 @@ function isFracZero(strValue, notAllowInsignZeros)
     var dotPos=firstDotPos(strValue);
     var int=strValue.slice(0, dotPos);
     var frac=strValue.slice(dotPos+1);
-    if(!(isIntZero(int, notAllowInsignZeros)&&isIntZero(frac, 0)))
+    if(!(isIntZero(int[0]=='-'?int.slice(1):int, notAllowInsignZeros)&&isIntZero(frac, 0)))
         return 0;
-    if(!(isIntZero(int, notAllowInsignZeros)&&isIntZero(frac, 0)))
+    if(!(isIntZero(int[0]=='-'?int.slice(1):int, notAllowInsignZeros)&&isIntZero(frac, 0)))
         return 0; 
     return 1;
 }
@@ -173,7 +173,7 @@ function isPosInt(strValue, notAllowInsignZeros)
 
 function isNegInt(strValue, notAllowInsignZeros)
 {
-    if(isNeg(strValue)&&isInt(strValue, notAllowInsignZeros))
+    if(isNeg(strValue)&&isInt(strValue[0]=='-'?strValue.slice(1):strValue, notAllowInsignZeros))
         return 2;
     return 0;
 }
@@ -181,6 +181,15 @@ function isNegInt(strValue, notAllowInsignZeros)
 function isZeroInt(strValue, notAllowInsignZeros)
 {
     if(isIntZero(strValue, notAllowInsignZeros))
+        return 1;
+    return 0;
+}
+
+function isNumber(strValue, notAllowInsignZeros)
+{
+    if(isPosFrac(strValue, notAllowInsignZeros)||isNegFrac(strValue, notAllowInsignZeros)||
+        isPosInt(strValue, notAllowInsignZeros)||isNegInt(strValue, notAllowInsignZeros)||
+        isZeroFrac(strValue, notAllowInsignZeros)||isZeroInt(strValue, notAllowInsignZeros))
         return 1;
     return 0;
 }

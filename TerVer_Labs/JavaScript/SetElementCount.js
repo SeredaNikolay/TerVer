@@ -74,7 +74,7 @@ function setImgCount(count)
     var oldLength=SomeImg.length;
     setElementCount("ImgDiv", ["SomeImg"], ["img"], count);
     for(var i=oldLength; i<SomeImg.length; i++)
-        SomeImg[i].onload=setTextDivHeight;
+        SomeImg[i].onload=setAnswerDivHeight;
 }
 
 function setLabelAndInputCount(count)

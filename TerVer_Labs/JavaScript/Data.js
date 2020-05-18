@@ -1,4 +1,25 @@
 //----------------------------------Данные------------------------------//
+/*function readFile()
+{
+    var file=document.getElementById("fileInput").files[0];
+    var reader= new FileReader();
+    reader.readAsText(file);
+    reader.onload=function(){
+        alert(reader.result);
+    };
+    reader.onerror=function(){
+        alert(reader.error);
+    }
+}*/
+/*var o=new XMLHttpRequest();
+var txt;
+o.open("GET", "AdditionalData/Lab_5.js");
+o.send();
+o.onload=function()
+{
+    alert("Hi!");
+}*/
+//var AdditionalDataLab_5=o.getAllResponseHeaders();//new Document("AdditionalData/Lab_5.html");//"AdditionalData/Lab_5.html";
 var SelectBoxCount=[3, 3, 3 ,3 ,2 ,2];
 var OptionText= [   
                     [//Лабораторные
@@ -78,7 +99,11 @@ var OptionText= [
                         ],
                         [
                             [
-                                "Нет подпунтов"
+                                "Выбрать файл и вывести его содержимое на экран",
+                                "Вариационный ряд",
+                                "Ряды частот и полигоны",
+                                "Эмпирическая функция распределения",
+                                "Числовые характеристики распределения"
                             ],
                             [
                                 "Нет подпунктов"
@@ -105,7 +130,7 @@ var TextDivCount=   [
                             [2]
                         ],
                         [
-                            [1],
+                            [0, 1, 2],
                             [1],
                             [1]
                         ]
@@ -229,13 +254,26 @@ var TextDivText=[
                     ],
                     [
                         [
-                            "A"
+                            [
+                                "",//Должен отсутствовать
+                            ],
+                            [
+                                "Задание выполняется по данным, полученным из файла"
+                            ],
+                            [
+                                "",//Должен быть пустым
+                                ""//Должен быть пустым
+                            ]
                         ],
                         [
-                            "B"
+                            [
+                                "B"
+                            ]
                         ],
                         [
-                            "C"
+                            [
+                                "C"
+                            ]
                         ]
                     ] 
                 ];
@@ -255,7 +293,7 @@ var ImgCount=   [
                         [1]
                     ],
                     [
-                        [1],
+                        [0, 0, 0],
                         [1],
                         [1]
                     ]
@@ -371,7 +409,13 @@ var ImgPath=    [
                     [
                         [
                             [
-                                "Images/Lab_3/Task_2/Local_theorem_of_de_Moivre-Laplace.png"
+                                ""//Картинки не нужны
+                            ],
+                            [
+                                ""//Картинки не нужны
+                            ],
+                            [
+                                ""//Картинки не нужны
                             ]
                         ],
                         [
@@ -419,7 +463,7 @@ var LabelCount= [
                     ],
                     [
                         [
-                            1
+                            0, 0, 0
                         ],
                         [
                             1
@@ -568,7 +612,13 @@ var LabelText=  [
                     [
                         [
                             [
-                                "AAA"
+                                ""//Не нужен
+                            ],
+                            [
+                                ""//Не нужен
+                            ],
+                            [
+                                ""//Не нужен
                             ]
                         ],
                         [
@@ -861,7 +911,10 @@ var errorMessage=   [
                         "Указаны номер гипотезы, чья вероятность не задана",
                         "Число m2 не может быть больше n",
                         "Число m1 не может быть больше m2",
-                        "Количество mi и pi должно совпадать"          
+                        "Количество mi и pi должно совпадать",
+                        "Выберите правильный файл",//30
+                        "Данные в файле заданы неверно",
+                        "Сначала нужно загрузить данные из файла в программу"          
                     ];
 function Wait()
 {
@@ -916,7 +969,9 @@ var CalculatingFormulaArr=  [
                                 ],
                                 [
                                     [
-                                        Wait
+                                        L_5_Task_1_A,
+                                        L_5_Task_1_B,
+                                        L_5_Task_1_C
                                     ],
                                     [
                                         Wait
@@ -929,6 +984,11 @@ var CalculatingFormulaArr=  [
 var isBlocked;
 var CalculateValue;
 var FracPrecision;
+var DataFromFile=[];
+var VariationalSeries=[];
+var SeriesOfFrequencies=[];
+var SeriesOfRelativeFrequencies=[];
+var DataFromFileWasSaved=0;
 function errorPrint(index)
 {
     alert(errorMessage[index]);

@@ -1,4 +1,4 @@
-function setTextDivHeight()
+function setAnswerDivHeight()
 {
     var MiddleCellHeight=document.getElementById("MiddleCell").offsetHeight;
     var SelectDivHeight=document.getElementById("SelectDiv").offsetHeight;
@@ -15,8 +15,49 @@ function setTextDivHeight()
     var LastSomeDivHeight=Height/2;
     var AnswerDivHeight=Height-LastSomeDivHeight;
     if(SomeDiv[SomeDiv.length-1]!=undefined)
+    {
         SomeDiv[SomeDiv.length-1].style.height=LastSomeDivHeight+"px";
-    document.getElementById("AnswerDiv").style.height=AnswerDivHeight+"px";
+        document.getElementById("AnswerDiv").style.height=AnswerDivHeight+"px";
+    }
+    else
+        document.getElementById("AnswerDiv").style.height=Height+"px";
+}
+
+function setCanvasSize()
+{
+    var i;
+    var SomeCanvas=document.getElementsByClassName("SomeCanvas");
+    for(i=0; i<SomeCanvas.length; i++)
+    {
+        if(SomeCanvas[i].id=="canvas_0")
+            canvasResize(SomeCanvas[i], "x", "n");
+        else if(SomeCanvas[i].id=="canvas_1")
+            canvasResize(SomeCanvas[i], "x", "w");
+        else if(SomeCanvas[i].id=="canvas_1")
+            canvasResize(SomeCanvas[i], "x", "y");
+    }
+}
+
+function setSomeTextDivHeight()
+{
+    var i;
+    var Select=document.getElementsByClassName("SomeSelect");
+    var SomeDiv=document.getElementsByClassName("SomeDiv");
+    for(i=0; i<SomeDiv.length&&i<2; i++)
+    {
+        var c=SomeDiv[i].style.height;
+        if(Select[0].value=="3"&&Select[1].value=="0"&&Select[2].value=="2"&&SomeDiv[i].style.minHeight!="300px")//При появлении 4 лабораторной работы заменить 3 на 4
+            SomeDiv[i].style.height="300px";
+        else if(!(Select[0].value=="3"&&Select[1].value=="0"&&Select[2].value=="2")&&SomeDiv[i].style.minHeight!="auto")
+            SomeDiv[i].style.height="auto";
+    }
+}
+
+function setSomeSize()
+{
+    setAnswerDivHeight();
+    setSomeTextDivHeight();
+    setCanvasSize();
 }
 
 function setElementsValues(className, Attribute, valueArr)
@@ -43,10 +84,28 @@ function setElementsValues(className, Attribute, valueArr)
     }
 }
 
+function setInputAndLabelFileDisplay()
+{
+    var InputFile=document.getElementById("InputFile");
+    var LabelFile=document.getElementById("LabelFile");
+    var Select=document.getElementsByClassName("SomeSelect");
+    if(Select[0].value=="3"&&Select[1].value=="0"&&Select[2].value=="0"&&LabelFile.style.display=="none")//Если появится 4 лабораторная, то заменить на 4
+    {
+        LabelFile.style.display="block";
+        InputFile.style.display="block";
+    }
+    else if(!(Select[0].value=="3"&&Select[1].value=="0"&&Select[2].value=="0")&&LabelFile.style.display!="none")//Если появится 4 лабораторная, то заменить на 4
+    {
+        LabelFile.style.display="none";
+        InputFile.style.display="none";
+    }
+}
+
 function setSelect()
 {
     var index=document.getElementsByClassName("SomeSelect")[0].value;
     setSelectCount(SelectBoxCount[index]);
+    setInputAndLabelFileDisplay();
 }
 
 function setDiv()
@@ -81,7 +140,7 @@ function setCaseParametrs()
     setImg();
     setInput();
     document.getElementById("AnswerDiv").innerHTML="";
-    setTextDivHeight();
+    setAnswerDivHeight();
     CalculateValue=getCurrentCaseValue(CalculatingFormulaArr);
 }
 

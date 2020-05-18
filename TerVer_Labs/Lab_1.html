@@ -11,7 +11,7 @@
         <script languege="javascript" src="JavaScript/ErrorState.js"></script>
         <script languege="javascript" src="JavaScript/SetParametrs.js"></script>
     </head>
-    <body onload="setStartParametrs()" onresize="setTextDivHeight()"></body>
+    <body onload="setStartParametrs()" onresize="setSomeSize()"></body>
         <audio id="Audio" src="Audio/Monkey.mp3" hidden></audio>
         <div class="EdgeCell" id="First">
             <img class="AnimationImg" src="Images/Animation.gif" alt="Анимация">
@@ -20,8 +20,11 @@
             <div class="UnifyingDiv" id="SelectDiv"></div>
             <div class="UnifyingDiv" id="TextDiv"></div>
             <div class="UnifyingDiv" id="ImgDiv"></div>
-            <div class="UnifyingDiv" id="InputDiv"></div>
-            <button id="CalculateButton" onclick="OnCalculateButtonClick()">Посчитать</button>
+            <div class="UnifyingDiv" id="InputDiv">
+                <label id="LabelFile">Выберите файл с данными для ввода</label>
+                <input type="file" id="InputFile">
+            </div>
+            <button id="CalculateButton" onclick="OnCalculateButtonClick()">Получить результат</button>
             <label id="AnswerLabel">Результат</label>
             <div id="AnswerDiv"></div>
         </div>

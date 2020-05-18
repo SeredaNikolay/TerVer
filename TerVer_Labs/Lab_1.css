@@ -8,6 +8,20 @@ body
     overflow-y: auto;
 }
 
+table
+{
+    border-spacing: 0px;
+    border-collapse: collapse;
+}
+
+.SomeTD
+{
+    border-style: groove;
+    border-width: 1px;
+    border-color: black;
+    white-space: nowrap;
+}
+
 u
 {
     text-decoration: overline;
@@ -129,6 +143,11 @@ label
     text-overflow: ellipsis;*/
 }
 
+#LabelFile
+{
+    display: none;
+}
+
 input
 {
     position: relative;
@@ -145,6 +164,11 @@ input
     
 }
 
+#InputFile
+{
+    display: none;
+}
+
 .UnifyingDiv
 {
     position: relative;
@@ -153,6 +177,7 @@ input
 .SomeDiv
 {
     position: relative;
+    height: auto;
     min-width: 100%;
     max-width: 100%;
     border-style: groove;
@@ -173,9 +198,21 @@ input
     border-color: rgb(28, 85, 207);
     word-break: break-all;
     overflow-y: auto;
+    overflow-x: auto;
 }
 
 #TextDiv
 {
     height: auto;
+}
+
+.SomeCanvas
+{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    background-color: white;
+    stroke-linecap: round;
 }

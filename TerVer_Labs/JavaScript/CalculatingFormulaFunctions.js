@@ -573,3 +573,324 @@ function L3_Task_2_Local_theorem_of_de_Moivre_Laplace(Value)
     }
     return Local_theorem_of_de_Moivre_Laplace(p, n, m).toFixed(FracPrecision);
 }
+//-----------------------------Лабораторная №5----------------------------------//
+/*
+function getStatisticalSeriesOfFrequencies(dataFromFile, statisticalSeries)
+{
+    var strArr=dataFromFile.split(RegExp(" |\\r\\n"));//Разделители - пробел или перевод на новую строку
+    var i, j, alreadyPresented;
+    if(convertStrToNum(strArr)==-1)
+        return -1;
+    for(i=0; i<strArr.length; i++)
+    {
+        alreadyPresented=0;
+        for(j=0; !alreadyPresented&&j<statisticalSeries.length; j++)
+        {
+            if(statisticalSeries[j][0]==strArr[i])
+            {
+                statisticalSeries[j][1]++;
+                alreadyPresented=1;
+            }
+        }
+        if(!alreadyPresented)
+            statisticalSeries[statisticalSeries.length]=[strArr[i], 1];
+    }
+    return 1;
+}
+
+function getVariationalSeries(statisticalSeriesOfFrequencies)
+{
+    var i, j, totCount=0, varSer=[];
+    var SSOfFr=statisticalSeriesOfFrequencies;
+    for(i=0; i<SSOfFr.length; i++)
+    {
+        for(j=0; j<SSOfFr[i][1]; j++, totCount++)
+            varSer[totCount]=SSOfFr[i][0];
+    }
+    varSer.sort((comp_1, comp_2)=>comp_1-comp_2);
+    return varSer.join(' ');
+}
+
+function setDataAndFreeReader(reader)
+{
+    setDataFromFile(reader);
+    delete reader;
+    document.getElementById("InputFile").value="";
+}
+//getStatisticalSeriesOfFrequencies(DataFromFile, statisticalSeries)==1
+//document.getElementById("AnswerDiv").innerHTML="Вариационный ряд:<br>"+getVariationalSeries(statisticalSeries);
+*/
+function DataFromFileAreCorrect(strArr)
+{
+    var i;
+    for(i=0; i<strArr.length; i++)
+    {
+        if(!(isNumber(strArr[i], 0)&&strArr[i].length))
+        {
+            errorPrint(31);
+            return 0;
+        }
+    }
+    return 1;   
+}
+
+function convertStrArrToNumArr(strArr)
+{
+    var i;
+    for(i=0; i<strArr.length; i++)
+        strArr[i]=Number(strArr[i]);
+}
+
+function getVariationalSeries()
+{
+    VariatioalSeries=DataFromFile.slice();
+    VariatioalSeries.sort((comp_1, comp_2)=>comp_1-comp_2);
+}
+
+function getSeriesOfFrequencies()
+{
+    var i, j, alreadyPresented;
+    for(i=0; i<VariatioalSeries.length; i++)
+    {
+        alreadyPresented=0;
+        for(j=0; !alreadyPresented&&j<SeriesOfFrequencies.length; j++)
+        {
+            if(SeriesOfFrequencies[j][0]==VariatioalSeries[i])
+            {
+                SeriesOfFrequencies[j][1]++;
+                alreadyPresented=1;
+            }
+        }
+        if(!alreadyPresented)
+            SeriesOfFrequencies[SeriesOfFrequencies.length]=[VariatioalSeries[i], 1];
+    }   
+}
+
+function getSeriesOfRelativeFrequencies()
+{
+    var i, amountFraq=0;
+    for(i=0; i<SeriesOfFrequencies.length; i++)
+        amountFraq+=SeriesOfFrequencies[i][1];
+    for(i=0; i<SeriesOfFrequencies.length; i++)
+        SeriesOfRelativeFrequencies[i]=[SeriesOfFrequencies[i][0], SeriesOfFrequencies[i][1]/amountFraq];
+}
+
+function saveAndSetDataFromFile(reader)
+{
+    if(!reader.error)
+    {
+        DataFromFile=reader.result.split(RegExp(" |\\r\\n"));
+        if(DataFromFileAreCorrect(DataFromFile))
+        {
+            convertStrArrToNumArr(DataFromFile);
+            document.getElementById("AnswerDiv").innerHTML="Данные:<br>"+DataFromFile.join(' ');
+            getVariationalSeries();
+            getSeriesOfFrequencies();
+            getSeriesOfRelativeFrequencies();
+            DataFromFileWasSaved=1;
+            return 1;
+        }
+        else
+            DataFromFile="";
+    }
+    else
+        alert(reader.error);
+    DataFromFileWasSaved=0;
+    return 0;
+}
+
+
+/*function saveAndSetDataFromFile(reader)
+{
+    if(!reader.error)
+    {
+        DataFromFile=reader.result.split(RegExp(" |\\r\\n"));
+        if(DataFromFileAreCorrect(DataFromFile))
+        {
+            convertStrArrToNumArr(DataFromFile);
+            document.getElementById("AnswerDiv").innerHTML="Данные:<br>"+DataFromFile.join(' ');
+            DataFromFileWasSaved=1;
+            return 1;
+        }
+        else
+            DataFromFile="";
+    }
+    else
+        alert(reader.error);
+    DataFromFileWasSaved=0;
+    return -1;
+}*/
+
+function LoadDataAndFreeReader(reader)
+{
+    saveAndSetDataFromFile(reader);
+    delete reader;
+    document.getElementById("InputFile").value="";
+}
+
+function getDataFromFile()
+{
+    var file=document.getElementById("InputFile").files[0];
+    var reader= new FileReader();
+    if(!file)
+    {
+        errorPrint(30);
+        return -1;
+    }
+    reader.readAsText(file);
+    reader.onload=function()
+    {
+        LoadDataAndFreeReader(reader);
+    }
+    reader.onerror=function()
+    {
+        LoadDataAndFreeReader(reader)
+    }   
+}
+
+function getTable(series, captUpperRow, captLowerRow)
+{
+    var i;
+    var upperRow="<tr><td class=SomeTD>"+captUpperRow+"</td>";
+    var lowerRow="<tr><td class=SomeTD>"+captLowerRow+"</td>";
+    var table="";
+    for(i=0; i<series.length; i++)
+    {
+        upperRow+="<td class=SomeTD>"+series[i][0]+"</td>";
+        lowerRow+="<td class=SomeTD>"+series[i][1]+"</td>";
+    }
+    upperRow+="</tr>";
+    lowerRow+="</tr>";
+    table+="<table>"+upperRow+lowerRow+"</table>";
+    return table;
+}
+
+function canvasResize(canvas, xAxisLabel, yAxisLabel)
+{
+    var canvContext=canvas.getContext("2d");
+    var width=canvas.parentElement.offsetWidth;//300 размеры холста по умолчанию;
+    var height=canvas.parentElement.offsetHeight;//150;
+    canvas.width=width;//canvas.style.width=width+"px"; canvas.style.height=height+"px"; canvContext.scale(300/width, 150/height); не использовать!(не меняет размер буфера отрисовки, в результате чего все размывается после масштабирования)
+    canvas.height=height;//canvas.style.width меняет размер холста, canvas.width меняет размер области для рисования, не путать
+    canvContext.beginPath();
+    canvContext.font="10px Arial";
+    canvContext.strokeStyle="black";
+    canvContext.lineCap="round";
+    canvContext.lineWidth=1;
+    //Ось x
+    canvContext.moveTo(0, height/2); 
+    canvContext.lineTo(width, height/2);
+    canvContext.lineTo(width-3, (height/2)-3);
+    canvContext.moveTo(width, height/2);
+    canvContext.lineTo(width-3, (height/2)+3);
+    canvContext.strokeText(xAxisLabel, width-10, (height/2)+10)
+    //Ось y
+    canvContext.moveTo(width/2, 0); 
+    canvContext.lineTo(width/2, height);//canvContext.moveTo(width/2, -height); canvContext.lineTo(width/2, 0); не рисует (???)
+    canvContext.moveTo(width/2, 0);
+    canvContext.lineTo((width/2)-3, 3);
+    canvContext.moveTo(width/2, 0);
+    canvContext.lineTo((width/2)+3, 3);
+    canvContext.strokeText(yAxisLabel, (width/2)+10, 10);
+    canvContext.stroke();
+}
+
+function createCanvas(Div, canvasId)
+{
+    Div.innerHTML="<canvas class=SomeCanvas id="+canvasId+"></cavnas>";
+    setSomeTextDivHeight();
+    setCanvasSize();
+}
+
+/*function someDraw(canvId, xAxisLabel, yAxisLabel)
+{
+    var canvContext=document.getElementById(canvId).getContext("2d");
+    var width=Div.clientWidth;//300;
+    var height=Div.clientHeight;//150;
+    canvContext.beginPath();
+    canvContext.strokeStyle="black";
+    canvContext.lineCap="round";
+    canvContext.lineWidth=2;
+    //Ось x
+    canvContext.moveTo(0, height/2); 
+    canvContext.lineTo(width, height/2);
+    canvContext.lineTo(width-3, (height/2)-3);
+    canvContext.moveTo(width, height/2);
+    canvContext.lineTo(width-3, (height/2)+3);
+    canvContext.strokeText(xAxisLabel, width-7, (height/2)+7)
+    //Ось y
+    canvContext.moveTo(width/2, 0); 
+    canvContext.lineTo(width/2, height);//canvContext.moveTo(width/2, -height); canvContext.lineTo(width/2, 0); не рисует (???)
+    canvContext.moveTo(width/2, 0);
+    canvContext.lineTo((width/2)-3, 3);
+    canvContext.moveTo(width/2, 0);
+    canvContext.lineTo((width/2)+3, 3);
+    canvContext.strokeText(yAxisLabel, (width/2)+7, 7);
+    canvContext.stroke();
+}*/
+
+/*function Y(M,x) 
+{
+    if (Math.abs(F(M*x))>0.00001)
+        return (M/F(M*x));
+    else
+    {
+        if (Math.abs(M)>0.00001)
+            return ((M/Math.abs(M))*Infinity);
+        else return (0);
+    }
+}
+
+function loadGraph()
+{
+    var canvas = document.getElementById("myCanvas");
+    var ctx = canvas.getContext("2d");
+    var width = canvas.width;
+    var height = canvas.height;
+    makro.canvas = canvas;
+    makro.context = ctx;
+    makro["width"] = width;
+    makro["height"] = height;
+    ctx.fillStyle="#a0a0a0";
+    ctx.fillRect(0,0,width,height);
+    ctx.beginPath();
+    ctx.strokeStyle="#606060";
+    ctx.lineWidth = 1;
+    ctx.moveTo(0,height/2); ctx.lineTo(width,height/2);
+    ctx.moveTo(width/2,0); ctx.lineTo(width/2,height);
+    ctx.closePath();
+    ctx.stroke();
+}*/
+
+function L_5_Task_1_A()
+{
+    getDataFromFile();
+    return "";
+}
+
+function L_5_Task_1_B()
+{
+    return "Вариационный ряд:<br>"+VariatioalSeries.join(' ');
+}
+
+function L_5_Task_1_C()
+{
+    var SomeDiv=document.getElementsByClassName("SomeDiv");
+
+    /*var serOfFreq=[[], []];
+    var serOfRelFreq=[[], []];
+    if(getStatisticalSeriesOfFrequencies(serOfFreq))
+    {   
+        if(getStatisticalSeriesOfRelativeFrequencies(serOfRelFreq, serOfFreq))
+        {
+            alert(serOfFreq.join(' '));
+            alert(serOfRelFreq.join(' '));
+        }
+    }
+    return -1;*/
+    createCanvas(SomeDiv[0], "canvas_0");
+    //someDraw("canvas_0", "x", "n")
+    createCanvas(SomeDiv[1], "canvas_1");
+    //someDraw("canvas_1", "x", "n");
+    return "Статистический ряд частот:<br>"+getTable(SeriesOfFrequencies, "x<sub>i</sub>", "n<sub>i</sub>")+"<br>"+"Статистический ряд относительных частот:<br>"+getTable(SeriesOfRelativeFrequencies, "x<sub>i</sub>", "w<sub>i</sub>");
+}
