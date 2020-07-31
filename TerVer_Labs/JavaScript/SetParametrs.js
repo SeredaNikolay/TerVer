@@ -151,7 +151,7 @@ function setStartParametrs()
     setSelectCount(SelectBoxCount[0]);
     setSelectOptionCount(0, getCurrentSelectOptionTextArr(OptionText, 0));
     updateSelectOptions(0);
-    var minHight=document.getElementsByClassName("SomeSelect")[0].offsetHeight;
+    var minHight=5*document.getElementsByClassName("SomeSelect")[0].offsetHeight;
     document.getElementById("AnswerDiv").style.minHeight=minHight+"px";
     setCaseParametrs();
 }
